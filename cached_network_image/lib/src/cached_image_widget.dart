@@ -34,6 +34,7 @@ typedef LoadingErrorWidgetBuilder = Widget Function(
   BuildContext context,
   String url,
   Object error,
+  StackTrace? stackTrace,
 );
 
 /// Image widget to show NetworkImage with caching functionality.
@@ -325,6 +326,6 @@ class CachedNetworkImage extends StatelessWidget {
     Object error,
     StackTrace? stackTrace,
   ) {
-    return errorWidget!(context, imageUrl, error);
+    return errorWidget!(context, imageUrl, error, stackTrace);
   }
 }
