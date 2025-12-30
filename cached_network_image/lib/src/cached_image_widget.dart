@@ -34,8 +34,12 @@ typedef LoadingErrorWidgetBuilder = Widget Function(
   BuildContext context,
   String url,
   Object error,
-  {StackTrace? stackTrace},
 );
+
+// Global Network image error handler.
+class CachedNetworkImageConfig {
+  static void Function(Object error, StackTrace? stackTrace)? globalErrorHandler;
+}
 
 /// Image widget to show NetworkImage with caching functionality.
 class CachedNetworkImage extends StatelessWidget {
@@ -326,6 +330,7 @@ class CachedNetworkImage extends StatelessWidget {
     Object error,
     StackTrace? stackTrace,
   ) {
-    return errorWidget!(context, imageUrl, error, stackTrace: stackTrace);
+    CachedNetworkImageConfig.globalErrorHandler?.call(error, stackTrace);
+    return errorWidget!(context, imageUrl, error);
   }
 }
